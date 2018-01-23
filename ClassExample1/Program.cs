@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,8 +35,11 @@ namespace ClassExample1
                                     };
             string userInput;  //Declaring a variable
             int row, column, accurateRow, accurateColumn;
-            bool keepAdding = true;
+            bool keepGoing = true;
+            string sentinel;
             List<String> courseList = new List<String>();
+            List<Double> tuitionList = new List<Double>();
+
 
             //Output courses to console
             for(var x = 0; x < classes.GetLength(0); x++)
@@ -47,8 +51,9 @@ namespace ClassExample1
                 }
                 Console.WriteLine(" \n");
             }//closing bracket for outer loop
-            do
-            {
+
+            do {
+
                 //Ask the user to select a course
                 Console.WriteLine("Please enter a course number from the list above");
                 userInput = Console.ReadLine();
@@ -57,22 +62,35 @@ namespace ClassExample1
                 accurateRow = row - 1;
                 accurateColumn = column - 1;
 
-           
                 Console.WriteLine($" You have selected {classes[accurateRow, accurateColumn]} that will cost {courseTuition[accurateRow, accurateColumn].ToString("c")}");
-                courseList.Add(classes[accurateRow, accurateColumn]);
-                Console.WriteLine("Would you like to add another course to your schedule");
-                keepAdding = Convert.ToBoolean(Console.ReadLine());
+                //Adding data to list
+                courseList.Add(classes[accurateRow, accurateColumn]); 
+                tuitionList.Add(courseTuition[accurateRow, accurateColumn]);
 
-            } while (keepAdding);
-            /** Delete everything below this line **/
-            //Iterate through list and output the course added to list
-            foreach(string r in courseList)
+                Console.WriteLine("If you would like to add another course, please enter Y to continue or N to exit program");
+                sentinel = Console.ReadLine();
+                sentinel = sentinel.ToUpper();
+                //Defensive programming
+
+
+                if(sentinel == "Y")
+                {
+                    keepGoing = true;
+                }
+                else
+                {
+                    keepGoing = false;
+                }
+
+            } while (keepGoing);
+
+            //Iterating through the list to output courses added to list
+            foreach(var i in courseList)
             {
-                Console.WriteLine($"{r}");
+                Console.WriteLine($"You have added the following courses {i}");
             }
-            Console.WriteLine($"The current count is {courseList.Count()}"); 
 
-
+            Console.WriteLine("Thanks for using this program your program had a total number of {0}", courseList.Count);
 
 
 
