@@ -33,12 +33,15 @@ namespace ClassExample1
                                     {1.0,3.0,1.0,2.0, 5.0 }
 
                                     };
-            string userInput;  //Declaring a variable
+            string userInput, termInput; //Declaring a variable
             int row, column, accurateRow, accurateColumn;
             bool keepGoing = true;
+            double sum;
             string sentinel;
             List<String> courseList = new List<String>();
             List<Double> tuitionList = new List<Double>();
+            Dictionary<string, double> term = new Dictionary<string, double>();
+
 
 
             //Output courses to console
@@ -51,9 +54,12 @@ namespace ClassExample1
                 }
                 Console.WriteLine(" \n");
             }//closing bracket for outer loop
+            Console.WriteLine("Please enter the desired term you would like to add courses to");
+            termInput = Console.ReadLine();
 
-            do {
-
+            do
+            {
+             
                 //Ask the user to select a course
                 Console.WriteLine("Please enter a course number from the list above");
                 userInput = Console.ReadLine();
@@ -71,9 +77,9 @@ namespace ClassExample1
                 sentinel = Console.ReadLine();
                 sentinel = sentinel.ToUpper();
                 //Defensive programming
+               
 
-
-                if(sentinel == "Y")
+                if (sentinel == "Y")
                 {
                     keepGoing = true;
                 }
@@ -91,7 +97,10 @@ namespace ClassExample1
             }
 
             Console.WriteLine("Thanks for using this program your program had a total number of {0}", courseList.Count);
+            sum = tuitionList.Sum();
 
+            term.Add(termInput, sum);
+            Console.WriteLine(" You have entered courses for {0},for a total amount of tution of  {1}", term.Keys.ElementAt(0), term.Values.ElementAt(0).ToString("C") );
 
 
         }
